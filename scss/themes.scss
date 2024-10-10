@@ -1,4 +1,4 @@
-:root {
+body {
     --color-text: #cdd6f4;
     --color-subtext-1: #bac2de;
     --color-subtext-2: #a6adc8;
@@ -29,7 +29,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-    :root {
+    body {
         --color-text: #4c4f69;
         --color-subtext-1: #5c5f77;
         --color-subtext-2: #6c6f85;
