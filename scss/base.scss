@@ -1,3 +1,8 @@
 @import url(./reset.scss);
 @import url(./themes.scss);
 @import url(./micro.scss);
+
+body {
+    color: var(--color-text);
+    background-color: var(--color-base);
+}
