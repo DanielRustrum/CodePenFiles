@@ -1,3 +1,7 @@
+@import "./reset.scss";
+@import "./themes.scss";
+@import "./micro.scss";
+
 body {
     color: var(--color-text);
     background-color: var(--color-base);

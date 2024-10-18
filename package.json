@@ -1,0 +1,11 @@
+{
+  "name": "codepenfiles",
+  "version": "1.0.0",
+  "description": "Files Used in my CodePen Pens",
+  "main": "index.js",
+  "scripts": {
+    "styles": "sass --watch scss/base.scss:public/import.css"
+  },
+  "author": "",
+  "license": "ISC"
+}
