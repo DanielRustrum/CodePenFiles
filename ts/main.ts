@@ -1,1 +1,1 @@
-console.log("tested")
+const log = () => console.log("tested")
