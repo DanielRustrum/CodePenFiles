@@ -4,8 +4,12 @@
   "description": "Files Used in my CodePen Pens",
   "main": "index.js",
   "scripts": {
-    "styles": "sass --watch --style=compressed scss/main.scss:public/import.css"
+    "styles": "sass --watch --style=compressed scss/main.scss:public/import.css",
+    "scripts": "tsc --watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
 }
