@@ -4,7 +4,7 @@
   "description": "Files Used in my CodePen Pens",
   "main": "index.js",
   "scripts": {
-    "styles": "sass --watch scss/base.scss:public/import.css"
+    "styles": "sass --watch --style=compressed scss/main.scss:public/import.css"
   },
   "author": "",
   "license": "ISC"
