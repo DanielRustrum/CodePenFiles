@@ -16,9 +16,9 @@
         "noImplicitOverride": true,
 
         /* If transpiling with TypeScript: */
-        "module": "AMD",
+        "module": "NodeNext",
         "rootDir": "./ts/",
-        "outFile": "./public/script.js",
+        "outDir": "./public/js",
         "sourceMap": true,
 
         /* AND if you're building for a library: */
@@ -31,5 +31,5 @@
         /* If your code runs in the DOM: */
         "lib": ["es2022", "dom", "dom.iterable"]
     },
-    "include": ["ts/**/*"]
+    "include": ["ts/main.ts"]
 }
