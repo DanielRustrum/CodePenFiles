@@ -1,8 +1,9 @@
-@import "./reset.scss";
-@import "./theme.scss";
-@import "./micro.scss";
+@use "./reset.scss";
+@use "./theme.scss";
+@use "./micro.scss";
 
 body {
     color: var(--color-text);
     background-color: var(--color-base);
+
 } 
