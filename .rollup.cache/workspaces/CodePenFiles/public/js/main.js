@@ -1,4 +1,4 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const log = () => console.log("tested");
+var log = function () { return console.log("tested"); };
 //# sourceMappingURL=main.js.map
