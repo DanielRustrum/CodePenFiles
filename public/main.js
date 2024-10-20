@@ -1,6 +1,6 @@
 'use strict';
 
-const log = () => console.log("tested");
+var log = () => console.log("tested");
 
 exports.log = log;
 //# sourceMappingURL=main.js.map
