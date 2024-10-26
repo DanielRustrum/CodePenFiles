@@ -26,6 +26,13 @@ body {
     --color-sapphire: #74c7ec;
     --color-blue: #89b4fa;
     --color-lavendar: #b4befe;
+
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 @media (prefers-color-scheme: light) {
