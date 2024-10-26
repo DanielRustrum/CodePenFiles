@@ -1,9 +1,7 @@
-console.log("Testings")
-
 {
-    var CPCore = {}
+    var Loader = {}
 
-    CPCore.use = (module_name) => {
+    Loader.use = (module_name) => {
         const ModuleLoader = document.querySelector("script[data-module-loader]")
         const ScriptElement = document.createElement("script")
         ScriptElement.setAttribute("src", `https://daniel.rustrum.net/CodePenFiles/modules/${module_name}.js`)
