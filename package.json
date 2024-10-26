@@ -4,16 +4,8 @@
   "description": "Files Used in my CodePen Pens",
   "main": "index.js",
   "scripts": {
-    "styles": "sass --watch --style=compressed scss/main.scss:import.css"
+    "dev": "sass --watch --style=compressed scss/main.scss:import.css"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.1",
-    "@rollup/plugin-typescript": "^12.1.1",
-    "rollup": "^4.24.0",
-    "rollup-plugin-sass": "^1.13.2",
-    "tslib": "^2.8.0",
-    "typescript": "^5.6.3"
-  }
+  "license": "ISC"
 }
