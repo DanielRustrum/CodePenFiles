@@ -4,8 +4,7 @@
   "description": "Files Used in my CodePen Pens",
   "main": "index.js",
   "scripts": {
-    "styles": "sass --watch --style=compressed scss/main.scss:public/import.css",
-    "scripts": "rollup --config rollup.config.js"
+    "styles": "sass --watch --style=compressed scss/main.scss:import.css"
   },
   "author": "",
   "license": "ISC",
