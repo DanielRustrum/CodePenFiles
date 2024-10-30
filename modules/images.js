@@ -77,3 +77,22 @@ const location_image_data = [
     _setImageData("Luca Pennacchioni", "Sermoneta", "Italy")
 ]
 
+const asset_url = "https://daniel.rustrum.net/CodePenFiles/assets"
+
+function getRandomAssetArray(type, length) {
+    const result = []
+
+    switch (type) {
+        case 'profiles':
+            var asset_length = 13
+            break
+        case 'landscapes':
+            var asset_length = 21
+            break
+    }
+
+    for (const index = 0; index < length; index++) {
+        const random_int = Math.floor(Math.random() * asset_length)
+        result.push(asset_url + `/${type}/${random_int}.jpg`)
+    }
+}
