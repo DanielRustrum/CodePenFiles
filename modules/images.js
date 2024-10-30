@@ -95,6 +95,8 @@ function getRandomAssetArray(type, length) {
         const random_int = Math.floor(Math.random() * asset_length)
         result.push(asset_url + `/${type}/${random_int}.jpg`)
     }
+
+    return result
 }
 
 CPEC._hidden.export("images", {
