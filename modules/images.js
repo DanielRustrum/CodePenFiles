@@ -97,6 +97,6 @@ function getRandomAssetArray(type, length) {
     }
 }
 
-CPEC._hidden.export({
+CPEC._hidden.export("images", {
     getRandomAssetArray
 })
