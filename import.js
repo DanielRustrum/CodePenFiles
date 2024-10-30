@@ -1,5 +1,6 @@
 let CPEC = {}
 CPEC.prototype.modules = {}
+console.log(CPEC)
 
 CPEC.import = async (module_name) => {
     return new Promise((resolve, reject) => {     
