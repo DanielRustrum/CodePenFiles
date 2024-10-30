@@ -96,3 +96,7 @@ function getRandomAssetArray(type, length) {
         result.push(asset_url + `/${type}/${random_int}.jpg`)
     }
 }
+
+CPEC.prototype.export({
+    getRandomAssetArray
+})
