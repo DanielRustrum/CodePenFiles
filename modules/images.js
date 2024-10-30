@@ -91,7 +91,7 @@ function getRandomAssetArray(type, length) {
             break
     }
 
-    for (const index = 0; index < length; index++) {
+    for (let index = 0; index < length; index++) {
         const random_int = Math.floor(Math.random() * asset_length)
         result.push(asset_url + `/${type}/${random_int}.jpg`)
     }
