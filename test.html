@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./import.js"></script>
     <title>Document</title>
+    <style>
+        #images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 50px;
+        }
+
+        .profile {
+            height: 100px;
+            border-radius: 100px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
     <div id="images"></div>
@@ -14,17 +28,16 @@
             const images = await CPEC.import("images")
             const doms = await CPEC.import("dom")
             
-            console.log(images)
+            console.log(doms)
 
             const image_urls = images.getRandomAssetArray("profiles", 50)
             const image_container = document.querySelector("#images")
-            console.log(image_urls)
 
-            const fragment = doms.listToElement(image_urls, url => {
-                const new_image = document.createElement("img")
-                new_image.setAttribute("src", url)
-                return new_image
-            })
+            const fragment = doms.listToElement(
+                image_urls, 
+                url => doms.createElement(`img.profile[src=${url}]`)
+            )
+                
             image_container.appendChild(fragment)
         }
 
