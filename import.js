@@ -1,7 +1,6 @@
 let CPEC = {}
 CPEC._hidden = {}
 CPEC._hidden.modules = {}
-console.log(CPEC)
 
 CPEC.import = async (module_name) => {
     return new Promise((resolve, reject) => {     

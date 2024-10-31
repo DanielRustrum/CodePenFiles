@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="images"></div>
+    <script data-module-loader></script>
+    <script src="./import.js"></script>
+    <script>
+        async function main() {
+            const images = await CPEC.import("images")
+            const doms = await CPEC.import("dom")
+            
+            console.log(images)
+
+            const image_urls = images.getRandomAssetArray("profiles", 50)
+            const image_container = document.querySelector("#images")
+            console.log(image_urls)
+
+            const fragment = doms.listToElement(image_urls, url => {
+                const new_image = document.createElement("img")
+                new_image.setAttribute("src", url)
+                return new_image
+            })
+            image_container.appendChild(fragment)
+        }
+
+        main()
+    </script>
+</body>
+</html>
