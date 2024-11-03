@@ -26,7 +26,7 @@
     <script>
         async function main() {
             const images = await CPEC.import("images")
-            const doms = await CPEC.import("dom")
+            const doms = await CPEC.import("dom", dev=true)
             
             console.log(doms)
 
@@ -35,7 +35,7 @@
 
             const fragment = doms.listToElement(
                 image_urls, 
-                url => doms.createElement(`img.profile[src=${url}]`)
+                url => doms.createElement(`img.profile[src="${url}"]`)
             )
                 
             image_container.appendChild(fragment)
