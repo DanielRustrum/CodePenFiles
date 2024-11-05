@@ -79,46 +79,41 @@ const location_image_data = [
 
 const asset_url = "https://daniel.rustrum.net/CodePenFiles/assets"
 
-function getRandomAssetArray(type, length, meta_data = false) {
-    const result = []
-
+function imageTypeData(type) {
     switch (type) {
         case 'profiles':
-            var asset_length = 13
-            break
+            return [13, (index) => {
+                const author = profiles_tag_relations[index]
+                const author_url = Tags[author]
+                return {author, author_url}
+            }]
         case 'landscapes':
-            var asset_length = 21
-            break
+            return [21, (index) => {
+                let meta = location_image_data[index]
+                const author_url = Tags[meta.author]
+                meta.author_url = author_url
+                return meta
+            }]
     }
+}
+
+function getRandomAssetArray(type, length, meta_data = false) {
+    const result = []
+    const [asset_length, imageData] = imageTypeData()
 
     for (let index = 0; index < length; index++) {
         let random_int = Math.floor(Math.random() * asset_length)
         if(random_int === 0) random_int = asset_length;
-        if(meta_data) {
-            let meta = ""
-            let author_url = ""
 
-            switch (type) {
-                case 'profiles':
-                    const author = profiles_tag_relations[random_int]
-                    author_url = Tags[meta]
-                    meta = {author, author_url}
-                    break
-                case 'landscapes':
-                    meta = location_image_data[random_int]
-                    author_url = Tags[meta.author]
-                    meta.author_url = author_url
-                    break
-            }
-            
-
+        if(meta_data)
             result.push({
                 url: asset_url + `/${type}/${random_int}.jpg`,
-                meta: meta,
-            })
-        }
+                data: imageData(random_int),
+            });
         else
-           result.push(asset_url + `/${type}/${random_int}.jpg`);
+            result.push({
+                url: asset_url + `/${type}/${random_int}.jpg`
+            });
     }
 
     return result
