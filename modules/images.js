@@ -1,3 +1,5 @@
+//SECTION: Data
+
 const Tags = {
     "Michael Dam": "https://unsplash.com/@michaeldam",
     "Aiony Haust": "https://unsplash.com/@aiony",
@@ -79,39 +81,49 @@ const location_image_data = [
 
 const asset_url = "https://daniel.rustrum.net/CodePenFiles/assets"
 
+
+//SECTION: Functions
+
+
 function imageTypeData(type) {
+    const getURL = (index) => asset_url + `/${type}/${index}.jpg`
+    
     switch (type) {
         case 'profiles':
-            return [13, (index) => {
+            var getData = (index) => {
                 const author = profiles_tag_relations[index]
                 const author_url = Tags[author]
                 return {author, author_url}
-            }]
+            }
+            return [13, getData, getURL]
         case 'landscapes':
-            return [21, (index) => {
+            var getData = (index) => {
                 let meta = location_image_data[index]
                 const author_url = Tags[meta.author]
                 meta.author_url = author_url
                 return meta
-            }]
+            }
+            return [21, getData, getURL]
+        default:
+            return [0, null, null]
     }
 }
 
 function getRandomAssetArray(type, length, data = false) {
     const result = []
-    const [asset_length, imageData] = imageTypeData(type)
+    const [asset_length, imageData, getURL] = imageTypeData(type)
 
     for (let index = 0; index < length; index++) {
         const random_int = Math.floor(Math.random() * asset_length) + 1
 
         if(data)
             result.push({
-                url: asset_url + `/${type}/${random_int}.jpg`,
+                url: getURL(random_int),
                 data: imageData(random_int),
             });
         else
             result.push({
-                url: asset_url + `/${type}/${random_int}.jpg`
+                url: getURL(random_int)
             });
     }
 
@@ -119,18 +131,18 @@ function getRandomAssetArray(type, length, data = false) {
 }
 
 function getRandomAsset(type, data=false) {
-    const [asset_length, imageData] = imageTypeData(type)
-
+    const [asset_length, imageData, getURL] = imageTypeData(type)
     const random_int = Math.floor(Math.random() * asset_length) + 1
-    const url = asset_url + `/${type}/${random_int}.jpg`
 
     if(data)
         return {
-            url,
+            url: getURL(random_int),
             data: imageData(random_int),
         };
     else
-        return { url };
+        return { 
+            url: getURL(random_int) 
+        };
 }
 
 CPEC._hidden.export("images", {
