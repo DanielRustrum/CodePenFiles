@@ -97,15 +97,14 @@ function imageTypeData(type) {
     }
 }
 
-function getRandomAssetArray(type, length, meta_data = false) {
+function getRandomAssetArray(type, length, data = false) {
     const result = []
     const [asset_length, imageData] = imageTypeData(type)
 
     for (let index = 0; index < length; index++) {
-        let random_int = Math.floor(Math.random() * asset_length)
-        if(random_int === 0) random_int = asset_length;
+        const random_int = Math.floor(Math.random() * asset_length) + 1
 
-        if(meta_data)
+        if(data)
             result.push({
                 url: asset_url + `/${type}/${random_int}.jpg`,
                 data: imageData(random_int),
@@ -117,6 +116,22 @@ function getRandomAssetArray(type, length, meta_data = false) {
     }
 
     return result
+}
+
+function getRandomAsset(type, data=false) {
+    const [asset_length, imageData] = imageTypeData(type)
+
+    const random_int = Math.floor(Math.random() * asset_length) + 1
+
+    if(data)
+        return {
+            url: asset_url + `/${type}/${random_int}.jpg`,
+            data: imageData(random_int),
+        };
+    else
+        return {
+            url: asset_url + `/${type}/${random_int}.jpg`
+        };
 }
 
 CPEC._hidden.export("images", {
