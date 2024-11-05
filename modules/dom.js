@@ -7,64 +7,114 @@ const listToElement = (list, elementCallback) => {
     return ContainerElement
 }
 
-/**
- * Create a DOM element from a CSS query with option to include content
- *
- * @author Laurent Blanes <laurent.blanes@gmail.com>
- * @package https://github.com/hekigan/dom-create-element-query-selector/blob/master/src/index.js
- * 
- * @param {String} querySelector (optional) default to div
- * @param {...*} [content] (optional) String|Number|DOMElement
- * @return DOMElement
- *
- */
-function createElement (querySelector = 'div', ...content) {
-    let nodeType = querySelector.match(/^[a-z0-9]+/i);
-    let id = querySelector.match(/#([a-z]+[a-z0-9-]*)/gi);
-    let classes = querySelector.match(/\.([a-z]+[a-z0-9-]*)/gi);
-    let attributes = querySelector.match(/\[([a-z][a-z-]+)(=['|"]?([^\]]*)['|"]?)?\]/gi);
-    let node = (nodeType) ? nodeType[0] : 'div';
 
-    if (id && id.length > 1) {
-        throw CreateElementException('only 1 ID is allowed');
-    }
+function createElement(selector, ...content) {
+    let in_attr_string = false,
+        in_attr_key = false,
+        in_attr_value = false,
+        in_attr = false,
+        string_is_double = false,
+        string_is_single = false
 
-    const elt = document.createElement(node);
+    let keyword = "",
+        last_state = "element",
+        value = []
 
-    if (id) {
-        elt.id = id[0].replace('#', '');
-    }
+    let element = null
 
-    if (classes) {
-        const attrClasses = classes.join(' ').replace(/\./g, '');
-        elt.setAttribute('class', attrClasses);
-    }
+    for(let char of selector) {
+        switch(char) {
+            case ".":
+                if(in_attr_string) {
+                    keyword += char
+                    break
+                }
 
-    if (attributes) {
-        attributes.forEach(item => {
-            item = item.slice(0, -1).slice(1);
-            let [label, value] = item.split('=');
-            if (value) {
-                value = value.replace(/^['"](.*)['"]$/, '$1');
-            }
-            elt.setAttribute(label, value || '');
-        });
-    }
+                [last_state, element, value, keyword] = iterateElement("class", keyword, value, last_state, element)
+                value = []
+                break
+            case "#":
+                if(in_attr_string) {
+                    keyword += char
+                    break
+                }
+    
+                [last_state, element, value, keyword] = iterateElement("id", keyword, value, last_state, element)
+                value = []
+                break
+            case "[":
+                if(in_attr_string) {
+                    keyword += char
+                    break
+                }
 
-    content.forEach(item => {
-        if (typeof item === 'string' || typeof item === 'number') {
-            elt.appendChild(document.createTextNode(item));
-        } else if (item.nodeType === document.ELEMENT_NODE) {
-            elt.appendChild(item);
+                in_attr_key = true
+                in_attr = true
+                [last_state, element, value, keyword] = iterateElement("attribute", keyword, value, last_state, element)
+                last_state = "attribute"
+                value = []
+                keyword=""
+                break
+            case "]":
+                if(in_attr_string) {
+                    keyword += char
+                    break
+                }
+
+                in_attr = false
+                in_attr_key = false         
+                in_attr_value = false
+                break
+            case "=":
+                if(in_attr_string) {
+                    keyword += char
+                    break
+                }
+
+                in_attr_value = true
+                in_attr_key = false
+                value.push(keyword)
+                keyword = ""
+                break
+            case '"':
+            case "'":
+                if(in_attr_value) in_attr_string = !in_attr_string;
+                break
+                
+            default:
+                keyword += char
+                break
         }
-    });
-
-    return elt;
+    }
+    [last_state, element, value, keyword] = iterateElement("end", keyword, value, last_state, element)  
+    return element
 }
 
-function CreateElementException (message) {
-    this.message = message;
-    this.name = 'CreateElementException';
+function iterateElement(state, keyword, value, old_state, element) {
+    value.push(keyword)
+    element = elementBuilder(old_state, value, element)
+    return [state, element, [], ""]
+}
+
+function elementBuilder(state, value, element) {
+    switch(state) {
+        case "element":
+            return document.createElement(value[0])
+        case "class":
+            element.classList.add(value[0])
+            return element
+        case "id":
+            element.setAttribute("id", value[0])
+            return element
+        case "attribute":
+            if (value.length === 1)
+                element.setAttribute(value[0], "");
+            else
+                element.setAttribute(value[0], value[1]);
+            return element
+        case "child":
+            return element.appendChild(value[0])
+    }
 }
 
 const mountFragment = (where, selector, fragment) => {
@@ -86,6 +136,7 @@ const mountFragment = (where, selector, fragment) => {
         }
     }
 }
+
 
 
 CPEC._hidden.export("dom", {
