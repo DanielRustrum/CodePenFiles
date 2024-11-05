@@ -47,7 +47,7 @@ const profiles_tag_relations = [
     "Tachina Lee"
 ]
 
-const _setImageData = (relation, place, region) => ( {
+const _setImageData = (author, place, region) => ( {
     author,
     place,
     region

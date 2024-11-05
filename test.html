@@ -28,14 +28,12 @@
             const images = await CPEC.import("images")
             const doms = await CPEC.import("dom", dev=true)
             
-            console.log(doms)
-
             const image_urls = images.getRandomAssetArray("profiles", 50)
             const image_container = document.querySelector("#images")
 
             const fragment = doms.listToElement(
                 image_urls, 
-                url => doms.createElement(`img.profile[src="${url}"]`)
+                image_data => doms.createElement(`img.profile[src="${image_data.url}"]`)
             )
                 
             image_container.appendChild(fragment)
