@@ -48,7 +48,7 @@ const profiles_tag_relations = [
 ]
 
 const _setImageData = (relation, place, region) => ( {
-    relation,
+    author,
     place,
     region
 })
@@ -79,7 +79,7 @@ const location_image_data = [
 
 const asset_url = "https://daniel.rustrum.net/CodePenFiles/assets"
 
-function getRandomAssetArray(type, length) {
+function getRandomAssetArray(type, length, meta_data = false) {
     const result = []
 
     switch (type) {
@@ -94,7 +94,31 @@ function getRandomAssetArray(type, length) {
     for (let index = 0; index < length; index++) {
         let random_int = Math.floor(Math.random() * asset_length)
         if(random_int === 0) random_int = asset_length;
-        result.push(asset_url + `/${type}/${random_int}.jpg`)
+        if(meta_data) {
+            let meta = ""
+            let author_url = ""
+
+            switch (type) {
+                case 'profiles':
+                    const author = profiles_tag_relations[random_int]
+                    author_url = Tags[meta]
+                    meta = {author, author_url}
+                    break
+                case 'landscapes':
+                    meta = location_image_data[random_int]
+                    author_url = Tags[meta.author]
+                    meta.author_url = author_url
+                    break
+            }
+            
+
+            result.push({
+                url: asset_url + `/${type}/${random_int}.jpg`,
+                meta: meta,
+            })
+        }
+        else
+           result.push(asset_url + `/${type}/${random_int}.jpg`);
     }
 
     return result
