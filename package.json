@@ -2,13 +2,19 @@
   "name": "codepenfiles",
   "version": "1.0.0",
   "description": "Files Used in my CodePen Pens",
-  "main": "index.js",
+  "main": "import.js",
   "scripts": {
-    "dev": "sass --watch --style=compressed scss/main.scss:import.css"
+    "dev": "sass --watch --style=compressed scss/main.scss:import.css",
+    "doc": "jsdoc -r modules docs/auto"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "sass": "^1.80.4"
+  },
+  "devDependencies": {
+    "docdash": "^2.0.2",
+    "jsdoc": "^4.0.4",
+    "jsdoc-to-markdown": "^9.0.5"
   }
 }

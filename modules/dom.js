@@ -6,7 +6,11 @@ const listToElement = (list, elementCallback) => {
     return ContainerElement
 }
 
-
+/** Creates a dom elemnt from a css selector
+ * 
+ * @param {*} selector 
+ * @returns 
+ */
 function createElement(selector) {
     let in_attr_string = false,
         encountered_special_char = false,
