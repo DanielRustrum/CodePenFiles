@@ -99,7 +99,7 @@ function imageTypeData(type) {
 
 function getRandomAssetArray(type, length, meta_data = false) {
     const result = []
-    const [asset_length, imageData] = imageTypeData()
+    const [asset_length, imageData] = imageTypeData(type)
 
     for (let index = 0; index < length; index++) {
         let random_int = Math.floor(Math.random() * asset_length)

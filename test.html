@@ -25,7 +25,7 @@
     <script data-module-loader></script>
     <script>
         async function main() {
-            const images = await CPEC.import("images")
+            const images = await CPEC.import("images", dev=true)
             const doms = await CPEC.import("dom", dev=true)
             
             const image_urls = images.getRandomAssetArray("profiles", 50)
