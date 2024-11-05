@@ -24,22 +24,20 @@
     <div id="images"></div>
     <script data-module-loader></script>
     <script>
-        async function main() {
+        //? I hate that I have to do this in JS
+        (async () => {
             const images = await CPEC.import("images", dev=true)
             const doms = await CPEC.import("dom", dev=true)
             
-            const image_urls = images.getRandomAssetArray("profiles", 50)
-            const image_container = document.querySelector("#images")
+            const image_urls = images.getRandomAssetArray("landscapes", 7)
 
             const fragment = doms.listToElement(
                 image_urls, 
                 image_data => doms.createElement(`img.profile[src="${image_data.url}"]`)
             )
                 
-            image_container.appendChild(fragment)
-        }
-
-        main()
+            doms.mountFragment("back", "#images", fragment)
+        })()
     </script>
 </body>
 </html>

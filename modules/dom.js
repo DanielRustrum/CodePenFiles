@@ -67,8 +67,29 @@ function CreateElementException (message) {
     this.name = 'CreateElementException';
 }
 
+const mountFragment = (where, selector, fragment) => {
+    const containers = document.querySelectorAll(selector)
+    for (const container of containers) {
+        switch (where) {
+            case "before":
+                container.before(fragment)
+                break
+            case "front":
+                container.prepend(fragment)
+                break
+            case "back":
+                container.append(fragment)
+                break
+            case "after":
+                container.after(fragment)
+                break
+        }
+    }
+}
+
 
 CPEC._hidden.export("dom", {
     listToElement,
-    createElement
+    createElement,
+    mountFragment
 })
