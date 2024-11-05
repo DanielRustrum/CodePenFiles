@@ -122,16 +122,15 @@ function getRandomAsset(type, data=false) {
     const [asset_length, imageData] = imageTypeData(type)
 
     const random_int = Math.floor(Math.random() * asset_length) + 1
+    const url = asset_url + `/${type}/${random_int}.jpg`
 
     if(data)
         return {
-            url: asset_url + `/${type}/${random_int}.jpg`,
+            url,
             data: imageData(random_int),
         };
     else
-        return {
-            url: asset_url + `/${type}/${random_int}.jpg`
-        };
+        return { url };
 }
 
 CPEC._hidden.export("images", {
