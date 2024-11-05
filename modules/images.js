@@ -146,5 +146,6 @@ function getRandomAsset(type, data=false) {
 }
 
 CPEC._hidden.export("images", {
-    getRandomAssetArray
+    getRandomAssetArray,
+    getRandomAsset
 })
