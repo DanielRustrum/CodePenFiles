@@ -29,7 +29,8 @@
             const images = await CPEC.import("images", dev=true)
             const doms = await CPEC.import("dom", dev=true)
             
-            const image_urls = images.getRandomAssetArray("landscapes", 7)
+            const image_urls = images.getRandomAssetArray("landscapes", 7, data=true)
+            console.log(image_urls)
 
             const fragment = doms.listToElement(
                 image_urls, 

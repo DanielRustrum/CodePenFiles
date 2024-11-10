@@ -83,8 +83,11 @@ const asset_url = "https://daniel.rustrum.net/CodePenFiles/assets"
 
 
 //SECTION: Functions
-
-
+/**
+ * @private Module-only Function
+ * @param {*} type 
+ * @returns {[number, Function, Function]}
+ */
 function imageTypeData(type) {
     const getURL = (index) => asset_url + `/${type}/${index}.jpg`
     
@@ -109,12 +112,53 @@ function imageTypeData(type) {
     }
 }
 
-function getRandomAssetArray(type, length, data = false) {
+/** 
+ * 
+ * @param {"profiles" | "landscapes"} type 
+ * @param {number} length 
+ * @param {boolean} data 
+ * @param {boolean} minimize_repeats 
+ * @returns {Array<{
+ *       url: string, 
+ *       data?: {
+ *          author: string, 
+ *           author_url: string,
+ *           place?: string,
+ *           region?: string
+ *      }
+ * }>}
+ */
+function getRandomAssetArray(type, length, data = false, minimize_repeats = false) {
     const result = []
+    const repeat_tracker = []
     const [asset_length, imageData, getURL] = imageTypeData(type)
 
+    const getIndex = () => {
+        if(minimize_repeats) {
+            if(repeat_tracker.length === asset_length) repeat_tracker = [];
+            
+            let retries = asset_length + 10
+            let random_int = 0
+    
+            while(stop_iterator <= 0) {
+                random_int = Math.floor(Math.random() * asset_length) + 1
+                
+                if(!repeat_tracker.includes(random_int)) {
+                    repeat_tracker.push(random_int)
+                    return random_int
+                }
+                
+                retries -= 1
+            }
+            
+            return random_int
+        } else {
+            return Math.floor(Math.random() * asset_length) + 1
+        }
+    }
+
     for (let index = 0; index < length; index++) {
-        const random_int = Math.floor(Math.random() * asset_length) + 1
+        const random_int = getIndex();
 
         if(data)
             result.push({
@@ -130,6 +174,20 @@ function getRandomAssetArray(type, length, data = false) {
     return result
 }
 
+/**
+ * 
+ * @param {*} type 
+ * @param {*} data 
+ * @returns {{
+ *       url: string, 
+ *       data?: {
+ *          author: string, 
+ *           author_url: string,
+ *           place?: string,
+ *           region?: string
+ *      }
+ * }}
+ */
 function getRandomAsset(type, data=false) {
     const [asset_length, imageData, getURL] = imageTypeData(type)
     const random_int = Math.floor(Math.random() * asset_length) + 1
