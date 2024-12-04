@@ -3,7 +3,7 @@ CPEC._hidden = {}
 CPEC._hidden.modules = {}
 CPEC._hidden.m_map = {}
 
-CPEC.import = async (module_name, dev=false) => {
+CPEC.getModule = async (module_name, dev=false) => {
     return new Promise((resolve, reject) => {     
         if(Object.keys(CPEC._hidden.modules).includes(module_name)) 
             resolve(CPEC._hidden.modules[module_name]);
